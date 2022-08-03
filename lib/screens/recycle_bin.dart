@@ -6,7 +6,7 @@ import '../widgets/tasks_list.dart';
 class RecycleBin extends StatelessWidget {
   const RecycleBin({Key? key}) : super(key: key);
 
-    static const id = 'recycle_bin_screen';
+    static const id = './recycle_bin.dart';
 
   
   @override

@@ -3,33 +3,41 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:final_todo/amplifyconfiguration.dart';
+import 'package:final_todo/screens/recycle_bin.dart';
 import 'package:final_todo/services/app_router.dart';
 import 'package:final_todo/screens/sign_in.dart';
 import 'package:flutter/material.dart';
-
+// import './services/app_router.dart';
 import 'blocs/bloc/tasks_event.dart';
 import 'blocs/block_export.dart';
 import 'models/ModelProvider.dart';
 import 'screens/tasks_screen.dart';
 
+
 void main() {
   BlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+    () => runApp( MyApp(
+      appRouter:AppRouter()
+    )),
   );
 }
 
+
+
+
+
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key, }) : super(key: key);
-  // final AppRouter appRouter;
+  MyApp({Key? key, required this.appRouter, }) : super(key: key);
+  final AppRouter appRouter;
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
+
 class _MyAppState extends State<MyApp> {
   bool _isLoading = true;
 
-  final _dataStorePlugin =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
+  final _dataStorePlugin =AmplifyDataStore(modelProvider: ModelProvider.instance);
   final AmplifyAPI _apiPlugin = AmplifyAPI();
   final AmplifyAuthCognito _authPlugin = AmplifyAuthCognito();
 
@@ -90,3 +98,17 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+class AppRouter {
+  Route? onGenerateRoute(RouteSettings routeSettings) {
+    switch (routeSettings.name) {
+      case RecycleBin.id:
+        return MaterialPageRoute(builder: (_) => RecycleBin());
+      case TasksScreen.id:
+        return MaterialPageRoute(builder: (_) => TasksScreen());
+      default:
+        return null;
+    }
+  }
+}
+

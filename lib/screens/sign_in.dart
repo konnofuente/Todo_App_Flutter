@@ -21,8 +21,20 @@ Widget build(BuildContext context) {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // app logo
-                  const Center(child: FlutterLogo(size: 100)),
+                  
+                  // ignore: unnecessary_string_escapes
+                  Image.asset('assets/images/todo.png'),
+                  // Image.network( // <-- SEE HERE
+                  //     '///png.icons8.com/microsoft_todo_2019/Fluent/1',
+                  //   ),
+                  // DecoratedBox(
+                  //   decoration: BoxDecoration(
+                  //   image: DecorationImage(
+                  //   image: AssetImage('../asset/logos/todo_logo.png')
+                  // )
+                  // )),
+                  // // app logo
+                  // const Center(child: FlutterLogo(size: 100)),
                   // prebuilt sign in form from amplify_authenticator package
                   SignInForm(),
                 ],
@@ -53,7 +65,7 @@ Widget build(BuildContext context) {
               child: Column(
                 children: [
                   // app logo
-                  const Center(child: FlutterLogo(size: 100)),
+                  Image.asset('assets/images/todo.png'),
                   // prebuilt sign up form from amplify_authenticator package
                   SignUpForm(),
                 ],

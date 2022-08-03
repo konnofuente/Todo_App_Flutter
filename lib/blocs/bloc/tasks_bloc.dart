@@ -5,7 +5,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:final_todo/amplifyconfiguration.dart';
 import 'package:final_todo/blocs/bloc/tasks_event.dart';
 import 'package:final_todo/blocs/bloc/tasks_state.dart';

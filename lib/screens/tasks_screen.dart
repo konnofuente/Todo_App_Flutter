@@ -13,7 +13,7 @@ import 'add_task_screen.dart';
 class TasksScreen extends StatelessWidget {
   TasksScreen({Key? key}) : super(key: key);
 
-  static const id = 'tasks_screen';
+  static const id = '/tasks_screen';
 
   void _addTask(BuildContext context) {
     showModalBottomSheet(
