@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "TodoApp",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\Le boss\\Desktop\\School\\flutter\\Stage\\1_Prog\\Code\\final_todo\\amplify\\backend\\api\\TodoApp\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "keyDescription": "api key description",
+      "expirationTime": 30
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    }
+  }
+}
