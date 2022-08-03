@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 id: '1',
                 name: 'todo',
                 description: 'make sure',
-                isComplete: false))),
+                isComplete: false, isRemove: false))),
       child: MaterialApp(
         title: 'Flutter Tasks App',
         theme: ThemeData(

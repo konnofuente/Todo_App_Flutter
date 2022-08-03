@@ -1,5 +1,3 @@
-
-
 import 'package:final_todo/blocs/bloc/tasks_event.dart';
 import 'package:flutter/material.dart';
 
@@ -14,23 +12,33 @@ class TaskTile extends StatelessWidget {
 
   final TODO task;
 
+  void _RemoveOrDeleteTask(BuildContext ctx, TODO task) {
+    task.isRemove
+        ? ctx.read<TasksBloc>().add(DeleteTask(task: task))
+        : ctx.read<TasksBloc>().add(RemoveTask(task: task));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
         task.name!,
-        style:  TextStyle(
-          decoration: task.isComplete ? TextDecoration.lineThrough: null,
-            fontSize: 20, fontWeight: FontWeight.bold),
-            
+        style: TextStyle(
+            decoration: task.isComplete ? TextDecoration.lineThrough : null,
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
       ),
       trailing: Checkbox(
         value: task.isComplete,
-        onChanged: (value) {
+        onChanged: task.isRemove == false ?
+         (value) {
           context.read<TasksBloc>().add(UpdateTask(task: task));
-        },
+        }
+        : null,
       ),
-      onLongPress:()=> context.read<TasksBloc>()..add(DeleteTask(task :task)),
+      onLongPress: () => {
+        _RemoveOrDeleteTask(context, task),
+      },
     );
   }
 }

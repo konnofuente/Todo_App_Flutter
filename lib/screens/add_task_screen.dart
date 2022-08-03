@@ -47,7 +47,8 @@ class AddTaskScreen extends StatelessWidget {
                         id: '1',
                         name: titleController.text,
                         description: descriptionController.text,
-                        isComplete: false);
+                        isComplete: false, 
+                        isRemove: false);
                     titleController.text.isNotEmpty
                         ? context.read<TasksBloc>().add(AddTask(task: task))
                         : print(

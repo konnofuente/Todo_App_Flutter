@@ -31,6 +31,7 @@ class TODO extends Model {
   final String? _name;
   final String? _description;
   final bool? _isComplete;
+  final bool? _isRemove;
   
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
@@ -63,6 +64,19 @@ class TODO extends Model {
           );
     }
   }
+
+    bool get isRemove {
+    try {
+      return _isRemove!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
   
   TemporalDateTime? get createdAt {
     return _createdAt;
@@ -72,14 +86,21 @@ class TODO extends Model {
     return _updatedAt;
   }
   
-  const TODO._internal({required this.id, name, description, required isComplete, createdAt, updatedAt}): _name = name, _description = description, _isComplete = isComplete, _createdAt = createdAt, _updatedAt = updatedAt;
+  const TODO._internal({required this.id, name, description, required isComplete,required isRemove, createdAt, updatedAt}): 
+            _name = name, 
+            _description = description, 
+            _isComplete = isComplete,
+            _isRemove = isRemove,
+            _createdAt = createdAt, 
+            _updatedAt = updatedAt;
   
-  factory TODO({String? id, String? name, String? description, required bool isComplete}) {
+  factory TODO({String? id, String? name, String? description, required bool isComplete, required bool isRemove}) {
     return TODO._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       description: description,
-      isComplete: isComplete);
+      isComplete: isComplete,
+      isRemove: isRemove);
   }
   
   bool equals(Object other) {
@@ -93,7 +114,8 @@ class TODO extends Model {
       id == other.id &&
       _name == other._name &&
       _description == other._description &&
-      _isComplete == other._isComplete;
+      _isComplete == other._isComplete &&
+      _isRemove == other._isRemove;
   }
   
   @override
@@ -108,6 +130,7 @@ class TODO extends Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("isComplete=" + (_isComplete != null ? _isComplete!.toString() : "null") + ", ");
+    buffer.write("isComplet=" + (_isRemove != null ? _isRemove!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -115,12 +138,13 @@ class TODO extends Model {
     return buffer.toString();
   }
   
-  TODO copyWith({String? id, String? name, String? description, bool? isComplete}) {
+  TODO copyWith({String? id, String? name, String? description, bool? isComplete, bool? isRemove}) {
     return TODO._internal(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
-      isComplete: isComplete ?? this.isComplete);
+      isComplete: isComplete ?? this.isComplete,
+      isRemove: isRemove ?? this._isRemove);
   }
   
   TODO.fromJson(Map<String, dynamic> json)  
@@ -128,17 +152,19 @@ class TODO extends Model {
       _name = json['name'],
       _description = json['description'],
       _isComplete = json['isComplete'],
+      _isRemove = json['isRemove'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'description': _description, 'isComplete': _isComplete, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'description': _description, 'isComplete': _isComplete,'isRemove': _isRemove, 'createdAt':  _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "tODO.id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField ISCOMPLETE = QueryField(fieldName: "isComplete");
+  static final QueryField ISREMOVE = QueryField(fieldName: "isRemove");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "TODO";
     modelSchemaDefinition.pluralName = "TODOS";
@@ -170,6 +196,11 @@ class TODO extends Model {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: TODO.ISCOMPLETE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.bool)
+    ));
+        modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: TODO.ISREMOVE,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.bool)
     ));

@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../models/TODO.dart';
 
-
 abstract class TasksEvent extends Equatable {
   const TasksEvent();
 
@@ -18,10 +17,9 @@ class AddTask extends TasksEvent {
     required this.task,
   });
 
-    @override
+  @override
   List<Object> get props => [task];
 }
-
 
 class UpdateTask extends TasksEvent {
   final TODO task;
@@ -29,7 +27,7 @@ class UpdateTask extends TasksEvent {
     required this.task,
   });
 
-    @override
+  @override
   List<Object> get props => [task];
 }
 
@@ -38,7 +36,14 @@ class DeleteTask extends TasksEvent {
   DeleteTask({
     required this.task,
   });
+}
 
-    @override
+class RemoveTask extends TasksEvent {
+  final TODO task;
+  RemoveTask({
+    required this.task,
+  });
+
+  @override
   List<Object> get props => [task];
 }
