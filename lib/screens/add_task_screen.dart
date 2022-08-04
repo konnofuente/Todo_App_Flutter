@@ -44,7 +44,7 @@ class AddTaskScreen extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {
                     var task = TODO(
-                        id: '1',
+                        
                         name: titleController.text,
                         description: descriptionController.text,
                         isComplete: false, 

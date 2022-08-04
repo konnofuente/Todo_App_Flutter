@@ -4,5 +4,4 @@ type TODO @model @auth(rules: [{allow: public}]) {
   description: String
   isComplete: Boolean!
   isRemove: Boolean!
-}
- 
+} 

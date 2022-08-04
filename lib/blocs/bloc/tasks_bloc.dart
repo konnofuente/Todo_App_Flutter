@@ -50,7 +50,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<RemoveTask>(_onRemoveTask);
   }
 
-  Future<FutureOr<void>> _onAddTask(
+  Future<void> _onAddTask(
       AddTask event, Emitter<TasksState> emit) async {
     final state = this.state;
     emit(TasksState(
@@ -73,7 +73,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     }
   }
 
-  FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
+  Future<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) async {
     final state = this.state;
     final task = event.task;
     final index = state.allTasks.indexOf(task);
@@ -81,20 +81,34 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     task.isComplete == false
         ? allTasks.insert(index, task.copyWith(isComplete: true))
         : allTasks.insert(index, task.copyWith(isComplete: false));
+    if (task.isComplete == false) {
+         allTasks.insert(index, task.copyWith(isComplete: true));
+         
+      final updatedItem = task.copyWith(
+          isComplete: true,
+          );
+      await Amplify.DataStore.save(updatedItem);
+
+    } else {
+      
+    }
 
     emit(TasksState(
       allTasks: allTasks,
       allRemove: state.allRemove,
       
       ));
+
+    
   }
 
-  FutureOr<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
+  Future<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) async {
     final state = this.state;
     final task = event.task;
     final index = state.allTasks.indexOf(task);
 
     List<TODO> allTasks = List.from(state.allTasks)..remove(task);
+    await Amplify.DataStore.delete(task);
     emit(TasksState(allTasks: allTasks));
   }
 
